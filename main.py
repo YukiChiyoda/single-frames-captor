@@ -13,7 +13,7 @@ def detect_faces(image):
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
     # 检测人脸
-    faces = face_cascade.detectMultiScale(gray, 1.1, 5, minSize=(200, 200))
+    faces = face_cascade.detectMultiScale(gray, 1.1, 5, minSize=(100, 100))
 
     if len(faces) > 0:
         # 返回所有检测到的人脸的中心点的平均值和人脸位置列表
@@ -46,8 +46,8 @@ def crop_to_4_3_ratio(image, face_center=None):
 
             cropped_image = image[start_y:end_y, 0:width]
         else:
-            # 如果没有检测到人脸，从顶部裁剪
-            cropped_image = image[0:target_height, 0:width]
+            # 如果没有检测到人脸，从五分之一处裁剪
+            cropped_image = image[height // 5 : height // 5 + target_height, 0:width]
     else:
         # 如果需要以高度为基准来调整宽度
         target_width = int(height * target_ratio)
